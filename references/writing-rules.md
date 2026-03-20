@@ -1,6 +1,6 @@
 # 寫作規則與 Deck 設計原則
 
-> 此文件由 SKILL.md Phase 5、Phase 7 引用。  
+> 此文件由 `references/phases-4-7.md` Phase 5 引用。讀取時機：First-Round Analysis 執行前。  
 > 包含：寫作語氣、標題規則、內文結構、頁尾規則、各頁功能定義、Deck 設計原則、論證型配圖執行規則。  
 > **視覺 ref 搜圖規則（設計錨點用）不在此文件——見 `references/visual-ref.md`。**  
 > **本文件只處理論證型配圖（用於佐證分析論點、嵌入最終頁面的圖）。**

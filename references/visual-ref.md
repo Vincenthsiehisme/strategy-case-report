@@ -1,6 +1,6 @@
 # Visual Reference 系統
 
-> 此文件由 SKILL.md Phase 6.5（Visual Brief）引用。  
+> 此文件由 `references/phases-4-7.md` Phase 6.5 引用。讀取時機：Visual Brief 視覺系統決策前。  
 > 輸出形式：PDF（印刷版靜態 HTML 轉換）。  
 > 目標：在 Phase 7 開始製作頁面前，鎖定整份報告的視覺系統，確保每頁風格一致、有主張、不飄移。  
 > **本文件只處理視覺 ref（設計錨點用）。論證型配圖執行規則見 `references/writing-rules.md`。**

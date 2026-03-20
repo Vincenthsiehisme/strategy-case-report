@@ -1,6 +1,6 @@
 # 模型庫參考文件
 
-> 此文件由 SKILL.md Phase 4 引用。  
+> 此文件由 `references/phases-4-7.md` Phase 4 引用。讀取時機：Analysis Blueprint 執行前。  
 > 包含：核心模型庫、條件式模型庫、模型選擇決策樹、模型使用規則、HTML 圖表實作指引。
 
 ## 目錄

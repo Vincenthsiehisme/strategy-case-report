@@ -6,6 +6,8 @@
 
 ## Phase 4｜Analysis Blueprint（AI 自主執行）
 
+> **分析模型參考**：選用模型時，讀取 `references/model-library.md` 取得模型庫、選擇決策樹與 HTML 圖表實作規格。
+
 逐案完成內部規劃，不輸出給使用者確認。Blueprint 是執行前的思考框架，不是交付物。
 
 **每案 Blueprint 包含四個部分：**
@@ -62,6 +64,8 @@ A4 版每案約 7 頁，Slide 版約 7–9 頁（部分頁面可合併）。
 ---
 
 ## Phase 5｜First-Round Analysis（AI 自主執行）
+
+> **寫作規則**：執行前確認已讀取 `references/writing-rules.md`，內含標題規則、寫作語氣、禁止模式、論證型配圖規則。
 
 逐案展開完整分析，固定 6 個分析單元。每個分析單元的最低標準見下表——低於標準視為未完成，必須補足後才能進 Phase 5.5。
 
@@ -143,6 +147,8 @@ A4 版每案約 7 頁，Slide 版約 7–9 頁（部分頁面可合併）。
 ## Phase 6.5｜Visual Brief（AI 自主執行）
 
 若輸出為純文字稿，跳過此 Phase。
+
+> **視覺系統參考**：決策前讀取 `references/visual-ref.md`，內含色彩系統、版型錨點、設計調性選擇框架。
 
 AI 依**輸出媒介 + 案例調性**自主決定視覺系統，不輸出 Visual Brief，不等確認：
 

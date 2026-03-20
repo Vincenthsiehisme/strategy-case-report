@@ -100,14 +100,23 @@ HTML artifact 使用 Google Fonts CDN，字體選擇遵循以下原則：
 
 **推薦字體配對（依情緒基調）：**
 
-| 情緒基調 | Display 推薦 | Body 推薦 | 特質 |
+| 情緒基調 | HTML Display | HTML Body | 特質 |
 |---------|------------|---------|------|
 | 銳利張力 | Bebas Neue / Barlow Condensed | DM Sans | 壓縮感、力道強 |
 | 沉穩優雅 | Playfair Display / Cormorant | Lato | 古典感、有重量 |
 | 專業精準 | Syne / Epilogue | Source Sans 3 | 現代感、乾淨 |
 | 高冷奢華 | Bodoni Moda / Libre Baskerville | Raleway | 時尚感、留白多 |
 
-**字體層級結構（每份報告必須定義）：**
+**PPTX 字體對照表（HTML Google Fonts 無法在 PPTX 使用，改用以下系統字體）：**
+
+| 情緒基調 | PPTX Header 字體 | PPTX Body 字體 | 說明 |
+|---------|----------------|--------------|------|
+| 銳利張力 | Impact | Calibri | 壓縮感保留，力道最強 |
+| 沉穩優雅 | Georgia | Calibri Light | 最接近 Playfair 的古典感 |
+| 專業精準 | Trebuchet MS | Calibri | 現代感、乾淨 |
+| 高冷奢華 | Palatino Linotype | Calibri | 最接近 Bodoni 的優雅感 |
+
+**HTML 字體層級結構：**
 
 ```css
 /* Display — 頁面主標題，statement page 大字 */
@@ -134,6 +143,22 @@ font-size: 0.7rem;
 letter-spacing: 0.12em;
 opacity: 0.5;
 ```
+
+**PPTX 字體大小規範（pptxGenJS 使用 pt 單位）：**
+
+| 層級 | 用途 | 大小 | 樣式 |
+|------|------|------|------|
+| Display | 投影片主標題、statement slide 大字 | 40pt | bold |
+| Heading | 分析頁小標、模型標題 | 20pt | bold、uppercase、charSpacing: 4 |
+| Body | 內文段落 | 14pt | regular、lineSpacingMultiple: 1.4 |
+| Caption | 來源標注、頁碼、eyebrow | 10pt | regular、charSpacing: 6 |
+| Insight | Tension 頁的 insight 句 | 22pt | bold italic |
+| Footer | 頁尾收束句 | 11pt | italic、accent 色 |
+
+**PPTX 版型尺寸規範：**
+- 投影片尺寸：`LAYOUT_WIDE`（13.3" × 7.5"），比 16:9 更寬，適合策略報告
+- 邊距：左右 0.6"，上下 0.5"，導航列高度 0.4"
+- 內容區域：從 y=0.9" 開始（導航列下方）
 
 ---
 
@@ -207,9 +232,13 @@ VISUAL BRIEF｜[報告名稱]
   次文字：#______
   強調色：#______ （用於[具體用途]）
 
-【字體配對】
-  Display：[字體名稱]（用於[具體用途]）
-  Body：[字體名稱]（用於[具體用途]）
+【字體配對｜HTML artifact】
+  Display：[Google Fonts 字體名稱]（用於[具體用途]）
+  Body：[Google Fonts 字體名稱]（用於[具體用途]）
+
+【字體配對｜PPTX】
+  Header：[系統字體名稱]（對應 HTML Display 的最近替代）
+  Body：[系統字體名稱]（對應 HTML Body 的最近替代）
 
 【版型節奏】
   Statement page → [具體描述]

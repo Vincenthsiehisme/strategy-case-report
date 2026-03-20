@@ -1,6 +1,6 @@
 # Strategy Case Report Skill
 
-**版本：2.0 ｜ 更新：2026-03-20**
+**版本：2.3 ｜ 更新：2026-03-20**
 
 AI 主導全程的策略型案例報告生產 skill。人類只在兩個停止點提供 input，其餘由 AI 自主推進，輸出可直接用於策略判斷與提案決策的高品質 insight。
 
@@ -144,3 +144,14 @@ HTML artifact 輸出需要 Claude.ai 或支援 artifact 渲染的環境。純文
 ## License
 
 MIT
+
+
+## 版本變更記錄
+
+| 版本 | 日期 | 主要變更 |
+|------|------|---------|
+| v1.6 | — | 基礎版本 |
+| v2.0 | 2026-03-20 | Phase 5.5 深挖層、Phase 6 防守型批判、Phase 6.5 Visual Brief、Autonomous Mode、Hard Rule 4、Phase 6/6.5 沉默執行 |
+| v2.1 | 2026-03-20 | 輸出媒介判斷邏輯、Phase 7 A1/A2 兩條路徑、output-slide.md、Rule 5/6 |
+| v2.2 | 2026-03-20 | Phase 2 視角組合判斷、Phase 3 視角角色欄位、Phase 4 Blueprint 規格、Phase 5 最低標準、writing-rules 內嵌、成功標準交叉引用 |
+| v2.3 | 2026-03-20 | SKILL.md 重構為 Progressive Disclosure 架構（669→268 行）；Phase 4–7 extracted 至 references/phases-4-7.md；A4 版型 extracted 至 references/output-a4.md；lazy-load 讀取規則明確化；Description 精簡至 75 字；Hard Rules 去重（Rules 1–4 已在原則章節）；新增 Gotcha：Phase 5.5 追問形式化 |

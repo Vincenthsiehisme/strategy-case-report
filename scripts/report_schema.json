@@ -1,0 +1,119 @@
+{
+  "_comment": "Strategy Case Report - report_data.json schema",
+  "_version": "1.0",
+  "_usage": "Claude 在 Phase 6.5 Visual Brief 確認後填入此結構，交由 build_report.py 組裝 HTML deck",
+
+  "meta": {
+    "title": "品牌案例觀察月報｜2025 Q2",
+    "subtitle": "本期聚焦的策略問題（一句話）",
+    "date": "2026-03-20",
+    "mode": "full",
+    "_mode_note": "full 或 sprint"
+  },
+
+  "visual": {
+    "colors": {
+      "bg_primary": "#1a1a1a",
+      "bg_secondary": "#2a2a2a",
+      "text_primary": "#f0f0f0",
+      "text_secondary": "#999999",
+      "accent": "#e8c547"
+    },
+    "fonts": {
+      "display": "Playfair Display",
+      "body": "Lato",
+      "_note": "必須是 Google Fonts 可用的字體名稱"
+    },
+    "mood": "沉穩優雅",
+    "_mood_note": "銳利張力 / 沉穩優雅 / 專業精準 / 高冷奢華"
+  },
+
+  "cases": [
+    {
+      "id": 1,
+      "brand": "品牌名稱",
+      "industry": "產業",
+      "year": "2024",
+      "case_in_one_line": "[品牌] 面對 [真實問題]，選擇 [策略動作]，而不是 [原本的做法]。",
+      "pages": {
+        "real_problem": {
+          "headline": "頁面標題（10-20字）",
+          "body": "核心問題定義。說明為何品牌不能照舊做的 2-3 句論述。",
+          "footer": "頁尾收束句（比標題再往前推半步的判斷）",
+          "pending_verification": false,
+          "_pending_note": "true 代表此頁有 ⚠️ 內容，需標注「初步判讀，待驗證」"
+        },
+        "tension": {
+          "headline": "頁面標題",
+          "insight": "Insight 句（消費者/市場的核心矛盾判斷）",
+          "body": "矛盾來源說明",
+          "footer": "頁尾收束句",
+          "pending_verification": false
+        },
+        "strategic_reframe": {
+          "headline": "頁面標題",
+          "old_frame": "品牌原本的說法",
+          "new_frame": "品牌選擇的新說法",
+          "rationale": "換框依據（一句話）",
+          "footer": "頁尾收束句",
+          "pending_verification": false
+        },
+        "system": {
+          "headline": "頁面標題",
+          "touchpoints": [
+            {
+              "name": "接觸點名稱",
+              "role": "這個點在消費者路徑中的角色",
+              "image_status": "found",
+              "_image_status_note": "found / needed。needed 時填 image_brief"
+            }
+          ],
+          "image_brief": null,
+          "_image_brief_note": "若 touchpoints 中有 needed，填入配圖需求描述字串",
+          "footer": "頁尾收束句",
+          "pending_verification": false
+        },
+        "why_it_lands": {
+          "headline": "頁面標題",
+          "verified_facts": ["已有公開數據佐證的事實1", "事實2"],
+          "preliminary_reads": ["初步判讀1（缺乏公開數據支持）"],
+          "footer": "頁尾收束句",
+          "pending_verification": false
+        },
+        "what_to_steal": {
+          "headline": "頁面標題",
+          "methods": [
+            {
+              "method": "具體方法描述",
+              "condition": "適用條件：什麼類型的品牌、什麼情境下可借用"
+            }
+          ],
+          "footer": "頁尾收束句",
+          "pending_verification": false
+        }
+      },
+      "model_configs": [
+        {
+          "model": "Consumer Journey",
+          "page": "system",
+          "purpose": "說明這個模型在此頁解決什麼分析問題"
+        }
+      ],
+      "sources": [
+        {
+          "label": "資訊標注",
+          "source": "來源名稱或 URL",
+          "type": "official",
+          "_type_note": "official / major_media / secondary_media"
+        }
+      ]
+    }
+  ],
+
+  "conclusion": {
+    "cross_case_insight": "從三案提煉出的跨案洞察（不是摘要，是更高一層的判斷）",
+    "action_prompt": "對讀者的行動建議或思考提問",
+    "_optional": true,
+    "_optional_note": "Sprint Mode 可省略，設為 null"
+  }
+}

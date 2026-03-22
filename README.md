@@ -1,6 +1,6 @@
 # Strategy Case Report Skill
 
-**版本：2.3 ｜ 更新：2026-03-20**
+**版本：2.5 ｜ 更新：2026-03-23**
 
 AI 主導全程的策略型案例報告生產 skill。人類只在兩個停止點提供 input，其餘由 AI 自主推進，輸出可直接用於策略判斷與提案決策的高品質 insight。
 
@@ -45,13 +45,28 @@ your-project/
 
 ## 執行模式
 
-**v2.0 只有一個模式：AI 自主執行。**
+**單一模式：AI 自主執行。**
 
-Full Mode 與 Sprint Mode 已移除。執行深度由 AI 依任務性質自主判斷，不需要使用者在開始前選擇。
+使用者不需要在開始前選擇模式。AI 依任務性質自主判斷執行深度。
 
 **兩個停止點：**
-1. **啟動確認**：AI 完成 Intake 後，輸出一句話任務確認，等 OK 才往前
-2. **Shortlist 確認**：AI 輸出案例名單 + 每案決策相關性說明，確認後全速執行至最終輸出
+1. **啟動確認**：AI 完成 Intake 後，輸出一句話任務確認（含輸出媒介），等 OK 才往前
+2. **Shortlist 確認**：AI 輸出案例名單 + 每案決策相關性 + 視角組合說明，確認後全速執行至最終輸出，不再停止
+
+停止點 2 確認後，Phase 4 → 5 → 5.5 → 6 → 6.5 → 7 全速自主執行，批判內化不外顯，視覺系統自主決定不等確認。
+
+---
+
+## 輸出路徑
+
+| 路徑 | 說明 | 觸發關鍵字 |
+|------|------|-----------|
+| A1 | A4 印刷報告 PDF | 「報告」「文件」「閱讀版」「A4」 |
+| A2 | 16:9 簡報 PDF | 「簡報」「deck」「slide」「投影」「提案用」 |
+| B | HTML artifact（互動版） | 「HTML」「artifact」「互動版」 |
+| D | 純文字稿（Markdown） | 「純文字」「文字稿」「不要視覺」 |
+
+輸出媒介在 Phase 1 Intake 時必須明確確認，「PDF」不等於 A4，AI 會主動釐清。
 
 ---
 
@@ -91,41 +106,38 @@ SWOT → TOWS、STP、JTBD、Brand Ladder、Brand Essence Pyramid、Golden Circl
 
 ```
 strategy-case-report/
-├── SKILL.md                          # 主流程（角色定位、硬規則、Phase 1–7、Gotchas）
+├── SKILL.md                          # 主流程（角色定位、硬規則、Phase 1–3、Gotchas）
 ├── references/
 │   ├── case-selection.md             # 案例篩選規則與 shortlist 評估標準
 │   ├── critique-scorecard.md         # 策略長批判問題庫（AI 內化執行，不外顯）
+│   ├── deepdive-protocol.md          # Phase 5.5 三軸深挖追問協議
 │   ├── model-library.md              # 模型庫、決策樹、HTML 圖表實作指引
-│   ├── plain-text-format.md          # 純文字分析稿格式模板
+│   ├── output-a4.md                  # A4 印刷報告版型規格（路徑 A1）
+│   ├── output-slide.md               # 16:9 Slide PDF 版型規格（路徑 A2）
+│   ├── phases-4-7.md                 # Phase 4–7 完整執行規格
+│   ├── plain-text-format.md          # 純文字分析稿格式模板（路徑 D）
+│   ├── report-data-schema.md         # HTML artifact 資料結構定義（路徑 B）
 │   ├── visual-ref.md                 # 視覺系統決策規格與搜圖規則（AI 自主執行）
 │   └── writing-rules.md              # 寫作規則、各頁功能定義、論證型配圖執行規則
 └── scripts/
-    ├── build_report.py               # HTML 報告建構腳本（Claude Code 環境專屬）
-    └── report_schema.json            # 報告資料結構定義
+    └── build_report.py               # HTML 報告建構腳本（Claude Code 環境專屬）
 ```
 
 ---
 
 ## 品質機制
 
-**AI 自主批判**：Phase 5 分析完成後，AI 切換策略長視角執行完整批判問題庫，直接修正輸出。批判執行摘要寫入來源附錄，不輸出 Scorecard，不等人審查。
+**AI 自主批判（Phase 5.5 + Phase 6）**
+Phase 5 完成後，AI 執行三軸深挖追問（根源 / 矛盾命名 / 可執行性），直接覆寫第一輪分析。Phase 6 切換策略長視角執行防守型批判，直接修正輸出。批判執行摘要寫入來源附錄，不輸出 Scorecard，不等人審查。
 
-**缺口提案機制**：AI 遇到資訊不足時，不問開放式問題，而是說明判斷依據、提出具體方案、問「這樣對嗎」。使用者沉默視為同意（低風險決策），高風險決策（影響整體方向）必須明確確認。
+**視覺系統自主決定（Phase 6.5）**
+AI 依輸出媒介 + 案例調性自主決定色彩系統、字體配對、版型節奏，不輸出 Visual Brief，不等確認。決策記錄寫入來源附錄。
 
-**成功標準（每條都有具體定義）**：案例選得準、問題切得準、Insight 足夠深、模型用得準而不重、內容能扛質疑、每案都能被轉成提案素材。
+**缺口提案機制**
+AI 遇到資訊不足時，不問開放式問題，而是說明判斷依據、提出具體方案、問「這樣對嗎」。使用者沉默視為同意（低風險決策），高風險決策（影響整體方向）必須明確確認。
 
----
-
-## v1.6 → v2.0 主要變更
-
-| 項目 | v1.6 | v2.0 |
-|------|------|------|
-| 執行模式 | Full / Sprint 兩種 | 單一自主模式 |
-| 停止點數量 | 7 個 | 2 個 |
-| 批判機制 | 輸出 Scorecard 等人審查 | AI 自主執行，直接修正 |
-| Visual Brief | 輸出等確認 | AI 自主決定，不外顯 |
-| 缺口處理 | 問開放式問題 | 先提案再確認 |
-| Gotchas | 有 | 有（針對新架構重寫）|
+**成功標準**
+案例選得準、問題切得準、Insight 足夠深、模型用得準而不重、內容能扛質疑、每案都能被轉成提案素材、輸出媒介與使用情境匹配、版型完整無結構性空白。每條標準在 SKILL.md 都有具體操作定義。
 
 ---
 
@@ -137,7 +149,7 @@ strategy-case-report/
 | Claude Code | ✅ 完整支援（含路徑 B build script）|
 | Claude Desktop / Cowork | ✅ 完整支援 |
 
-HTML artifact 輸出需要 Claude.ai 或支援 artifact 渲染的環境。純文字稿輸出在所有環境均可使用。
+HTML artifact 輸出（路徑 B）需要 Claude.ai 或支援 artifact 渲染的環境。純文字稿（路徑 D）在所有環境均可使用。
 
 ---
 
@@ -145,6 +157,7 @@ HTML artifact 輸出需要 Claude.ai 或支援 artifact 渲染的環境。純文
 
 MIT
 
+---
 
 ## 版本變更記錄
 
@@ -156,4 +169,4 @@ MIT
 | v2.2 | 2026-03-20 | Phase 2 視角組合判斷、Phase 3 視角角色欄位、Phase 4 Blueprint 規格、Phase 5 最低標準、writing-rules 內嵌、成功標準交叉引用 |
 | v2.3 | 2026-03-20 | SKILL.md 重構為 Progressive Disclosure 架構（669→268 行）；Phase 4–7 extracted 至 references/phases-4-7.md；A4 版型 extracted 至 references/output-a4.md；lazy-load 讀取規則明確化；Description 精簡至 75 字；Hard Rules 去重（Rules 1–4 已在原則章節）；新增 Gotcha：Phase 5.5 追問形式化 |
 | v2.4 | 2026-03-21 | 新增 Rule 9（版型完整性）與對應 Gotcha；成功標準補充「版型完整，無結構性空白」；output-slide.md v2.1（Steal card 寫作原則、DarkFull-Insight 行動指向要求、元素字數上限表）|
-| v2.5 | 2026-03-23 | 修正 8 項文件衝突與不一致；report_schema.json 搬至 references/report-data-schema.md（Markdown 格式）；SKILL.md 讀取規則表補 Phase 7 路徑 B 條目 |
+| v2.5 | 2026-03-23 | 修正 8 項文件衝突與不一致（visual-ref.md 移除等確認邏輯、critique-scorecard.md 移除 v1.x 殘留與深挖重複內容、phases-4-7.md 純文字稿路徑統一、output-slide.md 補 Rule 9 自查 Checklist、phases-4-7.md Phase 5 What to steal 補字數上限）；report_schema.json 搬至 references/report-data-schema.md（Markdown 格式）；SKILL.md 讀取規則表補 Phase 7 路徑 B 條目；README 全面同步至 v2.5 |

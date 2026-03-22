@@ -155,3 +155,4 @@ MIT
 | v2.1 | 2026-03-20 | 輸出媒介判斷邏輯、Phase 7 A1/A2 兩條路徑、output-slide.md、Rule 5/6 |
 | v2.2 | 2026-03-20 | Phase 2 視角組合判斷、Phase 3 視角角色欄位、Phase 4 Blueprint 規格、Phase 5 最低標準、writing-rules 內嵌、成功標準交叉引用 |
 | v2.3 | 2026-03-20 | SKILL.md 重構為 Progressive Disclosure 架構（669→268 行）；Phase 4–7 extracted 至 references/phases-4-7.md；A4 版型 extracted 至 references/output-a4.md；lazy-load 讀取規則明確化；Description 精簡至 75 字；Hard Rules 去重（Rules 1–4 已在原則章節）；新增 Gotcha：Phase 5.5 追問形式化 |
+| v2.4 | 2026-03-21 | 新增 Rule 9（版型完整性）與對應 Gotcha；成功標準補充「版型完整，無結構性空白」；output-slide.md v2.1（Steal card 寫作原則、DarkFull-Insight 行動指向要求、元素字數上限表）|

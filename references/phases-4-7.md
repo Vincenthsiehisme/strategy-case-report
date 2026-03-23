@@ -21,6 +21,8 @@
 
 **替換案例觸發條件**：壓力層 + 張力層同時為 `unknown` → AI 主動提案替換，說明原因，等確認（高風險決策）。
 
+> ⚠️ **全速執行 override**：Phase 3 確認後的「不再停止」規則，不覆蓋本觸發條件。壓力層 + 張力層同時 unknown 時，AI 必須停止並提案，不得繼續執行分析。
+
 **Phase 3.5 輸出**：扎根摘要（AI 內部使用，不外顯），帶入 Phase 4 Blueprint。格式見 `root-search.md`。
 
 完成後直接進 Phase 4。
@@ -164,7 +166,7 @@
 - 批判執行摘要寫入截點 JSON 的來源附錄區塊
 - 批判完成後不停止、不輸出 Scorecard
 
-> **純文字稿路徑例外**：輸出形式為純文字稿時，跳過 Phase 6.5 和截點，直接進 Phase 7 路徑 D。
+> **純文字稿路徑例外**：輸出形式為純文字稿時，跳過 Phase 6.5 和截點，讀取 `references/plain-text-format.md`，直接進 Phase 7 路徑 D。
 
 **Phase 6 完成後：輸出截點 JSON（`report_data.json`）**
 

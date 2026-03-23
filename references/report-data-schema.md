@@ -5,6 +5,9 @@
 > **字體說明**：`visual.fonts` 在 PDF 路徑使用 system font（Georgia、Arial、Palatino 等），HTML 路徑可使用 Google Fonts。  
 > **核心變更（v2.6）**：每個分析單元從「結論填空」改為三欄結構（confirmed / estimated / unknown）；新增 `root_evidence` 頂層區塊承載扎根搜尋結果。
 
+> ⚠️ **版本優先級**：`scripts/report_schema.json` 為舊版示範檔，與本文件定義的 v2.6 schema **不兼容**。  
+> AI 在 Phase 6 填截點 JSON 時，**以本文件為唯一準則**，不得參考 `report_schema.json` 的欄位結構。
+
 ---
 
 ## 頂層結構

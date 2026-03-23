@@ -3,7 +3,32 @@
 build_report.py — Strategy Case Report HTML Deck Builder
 Version: 2.6 | 2026-03-23
 
-v2.6 變更：
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+定位與使用時機
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+路徑 B（HTML artifact）有兩條執行路徑，視環境選擇：
+
+  路徑 B-1｜report-renderer skill（建議）
+    適用：Claude.ai、Claude Desktop、Cowork 等支援 skill 的環境
+    流程：Phase 6 截點輸出 report_data.json
+          → 開新對話啟用 report-renderer skill
+          → 貼入 JSON，說明「渲染成 HTML artifact」
+          → report-renderer skill 執行渲染
+
+  路徑 B-2｜build_report.py（Claude Code 環境 / report-renderer 不可用時）
+    適用：Claude Code 本地環境，或 report-renderer skill 尚未安裝時的 fallback
+    流程：Phase 6 截點輸出 report_data.json
+          → 在 Claude Code 環境呼叫本 script
+          → 直接產出 report.html
+
+兩條路徑讀取相同的 report_data.json，輸出相同的 HTML 結構。
+report-renderer skill 可用時優先走 B-1，build_report.py 是備用路徑，不是廢棄路徑。
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+v2.6 變更
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
   - 對齊 report-data-schema.md v2.6 三欄結構（confirmed / estimated / unknown）
   - 新增 root_evidence 渲染（壓力層 / 張力層 / 邊界層 status badge）
   - why_it_lands 改從 confirmed/estimated/unknown 三欄讀取，移除舊 verified_facts / preliminary_reads
@@ -11,18 +36,20 @@ v2.6 變更：
   - real_problem / tension / strategic_reframe / system 全部支援三欄輸出
   - unknown 欄位不進正文，寫入來源附錄「待補資料」區塊
   - insight_confidence badge：estimated 時加「初步判讀」標注
+  - validate() 新增舊 schema 欄位偵測（body / verified_facts / condition），有舊欄位直接報錯
 
-用途：
-    讀取 report_data.json（由 Phase 6 截點輸出），
-    組裝成完整的 HTML artifact deck。
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+使用方式
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-使用方式（由 Claude 呼叫）：
+由 Claude Code 呼叫：
     python scripts/build_report.py --input report_data.json --output report.html
 
-直接執行：
+直接執行（本機）：
     python scripts/build_report.py --input report_data.json --output report.html [--open]
 
 Dependencies: Python 3.8+，無需第三方套件
+Schema:       references/report-data-schema.md v2.6（以此為唯一準則，不參考 report_schema.json）
 """
 
 import argparse

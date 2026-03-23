@@ -1,11 +1,11 @@
 ---
 name: strategy-case-report
-version: "2.6"
+version: "2.6.1"
 updated: "2026-03-23"
 description: 策略型案例報告自主產出 skill。觸發：市場趨勢月報、品牌案例觀察、策略案例深拆、提案前置研究、競品觀察、策略學習 deck。關鍵字：「案例報告」「策略 deck」「品牌案例分析」「月報」「提案素材」「策略拆解」「幫我研究」「找幾個案例」「競品分析」「提案準備」「決策前置」。
 ---
 
-# Strategy Case Report Skill v2.6
+# Strategy Case Report Skill v2.6.1
 
 ## 版本變更記錄
 

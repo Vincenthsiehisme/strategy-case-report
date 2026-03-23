@@ -125,7 +125,7 @@ strategy-case-report/
 │   ├── root-search.md                # Phase 3.5 扎根搜尋規格
 │   └── writing-rules.md              # 寫作規則、各頁功能定義、論證型配圖規則
 └── scripts/
-    ├── build_report.py               # HTML 報告建構腳本（路徑 B，v2.6 對齊三欄 schema）
+    ├── build_report.py               # 路徑 B-2：Claude Code 環境 / report-renderer 不可用時的 fallback HTML builder（v2.6 三欄 schema）
     └── report_schema.json            # JSON 結構參考範例（⚠️ 舊版示範，以 report-data-schema.md 為準）
 ```
 
@@ -157,10 +157,21 @@ Phase 6 結束後輸出截點 JSON，使用者確認後在 report-renderer skill
 | 環境 | 支援狀況 |
 |------|---------|
 | Claude.ai（網頁 / App） | ✅ 完整支援 |
-| Claude Code | ✅ 完整支援（含路徑 B build script）|
+| Claude Code | ✅ 完整支援（路徑 B 走 build_report.py）|
 | Claude Desktop / Cowork | ✅ 完整支援 |
 
-HTML artifact 輸出（路徑 B）需要 Claude.ai 或支援 artifact 渲染的環境。純文字稿（路徑 D）在所有環境均可使用。
+**路徑 B（HTML artifact）的兩條執行路徑：**
+
+路徑 B 有兩種執行方式，視環境選擇，兩者讀取相同的 `report_data.json`，輸出相同的 HTML 結構：
+
+| 路徑 | 執行方式 | 適用環境 |
+|------|---------|---------|
+| B-1 | report-renderer skill | Claude.ai、Claude Desktop、Cowork 等支援 skill 的環境（建議） |
+| B-2 | `scripts/build_report.py` | Claude Code 本地環境，或 report-renderer skill 尚未安裝時的 fallback |
+
+report-renderer skill 可用時優先走 B-1。`build_report.py` 是備用路徑，不是廢棄路徑——兩者功能等價，維護狀態一致。
+
+純文字稿（路徑 D）在所有環境均可直接輸出，不需要 report-renderer skill 或 build_report.py。
 
 ---
 
@@ -183,3 +194,4 @@ MIT
 | v2.5 | 2026-03-23 | 修正 8 項文件衝突；report-data-schema.md 建立；README 全面同步 |
 | v2.6 | 2026-03-23 | **架構重設**：新增 Phase 3.5 扎根搜尋（root-search.md）；Phase 5 三欄輸出格式（confirmed / estimated / unknown）；Phase 6 結束後輸出截點 JSON，分析與輸出拆為兩段 context；deepdive-protocol.md 追問目標重新定義；critique-scorecard.md 新增可知與不可知批判層；report-data-schema.md 全面改寫為三欄結構 + root_evidence |
 | v2.6.1 | 2026-03-23 | **文件契約修正**：build_report.py 對齊 v2.6 三欄 schema（confirmed/estimated/unknown + root_evidence + scenarios[]）；report_schema.json 同步 v2.6 結構並加版本優先級聲明；SKILL.md 補路徑 D 讀取時機（plain-text-format.md）及全速執行 override 說明；phases-4-7.md 補 Phase 3.5 替換案例觸發條件的 override 聲明；report-data-schema.md 加優先級警示（以本文件為準，不得參考舊版 report_schema.json）；輸出路徑表新增「執行位置」欄說明分工 |
+| v2.6.2 | 2026-03-23 | **Repo 結構修正**：critique-scorecard.md 新增 v2.6 三欄誠實性批判層（5 條 checkitem）、修正 Phase 6.5 指向錯誤；plain-text-format.md 更新 Why it lands 為三欄格式、What to steal 改為 scenarios 結構、新增知識邊界聲明段落；SKILL.md 版本號更新至 v2.6.1；writing-rules.md 加渲染層邊界聲明（Deck 設計原則 + 配圖規則標注為 report-renderer 職責）；model-library.md 加渲染層邊界聲明（HTML 圖表實作指引標注為 report-renderer 職責）；build_report.py docstring 補充路徑 B-1/B-2 定位說明；README 補路徑 B 兩條路徑對照表與 build_report.py 定位說明 |

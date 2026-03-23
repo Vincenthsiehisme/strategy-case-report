@@ -170,80 +170,20 @@
 
 AI 將填完的 JSON 輸出給使用者，並說明：
 
-> 「第一段分析完成。`report_data.json` 如下。請確認內容後，開啟新對話，貼入以下啟動提示和 JSON 內容：
+> 「第一段分析完成。`report_data.json` 如下。
 >
-> ---
-> 【啟動提示】你是 Strategy Case Report Skill 的輸出執行器。讀取以下 JSON 和 references/output-slide.md（或 output-a4.md），執行 Phase 6.5 和 Phase 7。不讀入任何分析 references。
+> 請確認 JSON 內容後，開啟新對話並啟用 **report-renderer skill**，貼入 JSON，說明輸出格式（例如：「渲染成 16:9 Slide PDF」），即可啟動第二段渲染。
 >
-> 【JSON】
-> [完整 JSON 內容]
-> ---」
+> [完整 JSON 內容]」
 
-使用者確認 JSON 內容後，手動開啟新對話貼入，啟動第二段。
+使用者確認 JSON 內容後，手動開啟新對話，使用 report-renderer skill 渲染輸出。
 
 ---
 
-## Phase 6.5｜Visual Brief（AI 自主執行，第二段 context）
+## Phase 6.5 + Phase 7｜視覺決策與輸出（report-renderer skill）
 
-若輸出為純文字稿，跳過此 Phase。
+Phase 6.5（視覺決策）和 Phase 7（渲染輸出）已移至 **report-renderer skill** 執行。
 
-> **視覺系統參考**：決策前讀取 `references/visual-ref.md`。
+strategy-case-report 的職責在 Phase 6 截點輸出 JSON 後結束。後續渲染流程、版型規格、輸出映射規則，全部由 report-renderer skill 處理。
 
-AI 依 JSON 中的 `visual.mood` 和案例調性自主決定視覺系統細節，不輸出 Visual Brief，不等確認，直接進 Phase 7。
-
----
-
-## Phase 7｜Deck Output（AI 自主執行，第二段 context）
-
-**第二段 context 讀入規則**：
-- ✅ `report_data.json`
-- ✅ `references/output-slide.md` 或 `references/output-a4.md`（依 JSON meta 中的輸出媒介）
-- ❌ 不讀入 phases-4-7.md、deepdive-protocol.md、critique-scorecard.md 等分析 references
-
-**輸出映射規則**（從 JSON 三欄結構映射到頁面）：
-
-| JSON 狀態 | 頁面處理 |
-|----------|---------|
-| `confirmed` | 正文直接呈現，無額外標注 |
-| `estimated` | 正文呈現 + 「初步判讀」標注 + 代理變數說明 |
-| `unknown` | 不進正文，寫入來源附錄「待補資料」區塊 |
-| `insight_confidence: estimated` | Tension 頁 Quote box 加「初步判讀」標注 |
-| `boundary_status: unknown` | What to steal 使用條件標注「邊界條件待驗證」 |
-| `root_evidence.*.status: unknown` | Why it lands 對應層加「此層缺乏直接佐證」警示 |
-
----
-
-**路徑 A1｜A4 印刷報告 PDF**
-
-詳見 `references/output-a4.md`。WeasyPrint 轉換：
-
-```python
-from weasyprint import HTML, CSS
-HTML(filename='/home/claude/report_print.html').write_pdf(
-    '/mnt/user-data/outputs/report.pdf',
-    stylesheets=[CSS(string='@page { size: A4; margin: 18mm 20mm; }')]
-)
-```
-
----
-
-**路徑 A2｜16:9 簡報 PDF**
-
-詳見 `references/output-slide.md`。WeasyPrint 轉換：
-
-```python
-from weasyprint import HTML, CSS
-css = CSS(string='@page { size: 338mm 190mm; margin: 0; }')
-HTML(filename='/home/claude/report_slides.html').write_pdf(
-    '/mnt/user-data/outputs/report_slides.pdf',
-    stylesheets=[css]
-)
-```
-
----
-
-**路徑 B｜僅 HTML artifact**：互動版 HTML，不產 PDF。執行前讀取 `references/report-data-schema.md`，依其結構填入分析內容後交由 `scripts/build_report.py` 組裝。
-
-**路徑 D｜純文字稿**：Markdown 格式，每個分析單元為一個 ## 標題，內容依 Phase 5 的六個單元展開。
-
-轉換完成後呼叫對應的 `present_files()`。
+**report-renderer skill 的執行規格見其 SKILL.md 和 references/render-mapping.md。**

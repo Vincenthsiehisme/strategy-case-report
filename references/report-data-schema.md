@@ -346,16 +346,13 @@ report_data.json
 
 **第一段結束時**，AI 輸出填完的 JSON 並說明：
 
-> 「第一段分析完成。請確認 JSON 內容後，開啟新對話，貼入以下內容啟動輸出：
->
-> 系統提示：你是 Strategy Case Report Skill 的輸出執行器。讀取以下 JSON 和 references/output-slide.md（或 output-a4.md），執行 Phase 6.5 和 Phase 7。
->
-> [JSON 內容]」
+> 「第一段分析完成。請確認 JSON 內容後，開啟新對話並啟用 **report-renderer skill**，貼入 JSON，說明輸出格式（例如：「渲染成 16:9 Slide PDF」），即可啟動渲染。」
 
-**第二段讀入內容**：
-- `report_data.json`
-- `references/output-slide.md` 或 `references/output-a4.md`
-- 不讀入任何分析 references
+**第二段（report-renderer skill）讀入內容**：
+- `report_data.json`（本文件定義的結構）
+- report-renderer 的 `references/render-mapping.md`（映射規則）
+- report-renderer 的 `references/output-slide.md` 或 `references/output-a4.md`（依輸出媒介）
+- 不讀入 strategy-case-report 的任何分析 references
 
 **輸出映射規則**：
 

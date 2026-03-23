@@ -1,7 +1,8 @@
 {
   "_comment": "Strategy Case Report - report_data.json schema",
-  "_version": "1.0",
-  "_usage": "Claude 在 Phase 6.5 Visual Brief 確認後填入此結構，交由 build_report.py 組裝 HTML deck",
+  "_version": "2.6",
+  "_schema_authority": "此檔案僅供結構參考，不作為 AI 填寫截點 JSON 的依據。v2.6 欄位定義以 references/report-data-schema.md 為準。",
+  "_breaking_change": "v2.6 三欄結構（confirmed/estimated/unknown）與舊版 body/verified_facts/condition 欄位完全不兼容，舊版 JSON 無法直接用於 build_report.py v2.6",
 
   "meta": {
     "title": "品牌案例觀察月報｜2025 Q2",
@@ -35,29 +36,97 @@
       "industry": "產業",
       "year": "2024",
       "case_in_one_line": "[品牌] 面對 [真實問題]，選擇 [策略動作]，而不是 [原本的做法]。",
+
+      "root_evidence": {
+        "_comment": "Phase 3.5 扎根搜尋結果。status: rooted=有直接資料 / estimated=只有代理推論 / unknown=兩者都空",
+        "pressure": {
+          "status": "rooted",
+          "confirmed": [
+            {
+              "fact": "具體事實陳述（資料裡說的，不是推論）",
+              "source_ref": "對應的來源 label 或 URL"
+            }
+          ],
+          "estimated": []
+        },
+        "tension": {
+          "status": "estimated",
+          "confirmed": [],
+          "estimated": [
+            {
+              "claim": "推論內容",
+              "proxy": "使用的代理變數",
+              "assumption": "這個推論成立的假設條件",
+              "source_ref": "來源"
+            }
+          ]
+        },
+        "boundary": {
+          "status": "unknown",
+          "confirmed": [],
+          "estimated": []
+        }
+      },
+
       "pages": {
         "real_problem": {
           "headline": "頁面標題（10-20字）",
-          "body": "核心問題定義。說明為何品牌不能照舊做的 2-3 句論述。",
           "footer": "頁尾收束句（比標題再往前推半步的判斷）",
-          "pending_verification": false,
-          "_pending_note": "true 代表此頁有 ⚠️ 內容，需標注「初步判讀，待驗證」"
+          "confirmed": [
+            {
+              "claim": "直接資料支撐的問題定義句",
+              "source_ref": "來源 label"
+            }
+          ],
+          "estimated": [
+            {
+              "claim": "推論的問題描述",
+              "proxy": "使用的代理變數",
+              "assumption": "成立假設"
+            }
+          ],
+          "unknown": [
+            {
+              "question": "目前無法判斷的問題面向",
+              "needed": "需要什麼資料才能判斷",
+              "impact": "補齊後結論會怎麼改變"
+            }
+          ]
         },
+
         "tension": {
           "headline": "頁面標題",
-          "insight": "Insight 句（消費者/市場的核心矛盾判斷）",
-          "body": "矛盾來源說明",
+          "insight": "Insight 句（從 confirmed 或 estimated 提煉）",
+          "insight_confidence": "rooted | estimated",
+          "_insight_confidence_note": "rooted=直接資料支撐 / estimated=代理推論，輸出時加「初步判讀」標注",
           "footer": "頁尾收束句",
-          "pending_verification": false
+          "confirmed": [
+            {
+              "claim": "直接資料支撐的矛盾描述",
+              "source_ref": "來源 label"
+            }
+          ],
+          "estimated": [
+            {
+              "claim": "推論的矛盾描述",
+              "proxy": "代理變數",
+              "assumption": "成立假設"
+            }
+          ],
+          "unknown": []
         },
+
         "strategic_reframe": {
           "headline": "頁面標題",
           "old_frame": "品牌原本的說法",
           "new_frame": "品牌選擇的新說法",
           "rationale": "換框依據（一句話）",
           "footer": "頁尾收束句",
-          "pending_verification": false
+          "confirmed": [],
+          "estimated": [],
+          "unknown": []
         },
+
         "system": {
           "headline": "頁面標題",
           "touchpoints": [
@@ -71,40 +140,84 @@
           "image_brief": null,
           "_image_brief_note": "若 touchpoints 中有 needed，填入配圖需求描述字串",
           "footer": "頁尾收束句",
-          "pending_verification": false
+          "confirmed": [],
+          "estimated": [],
+          "unknown": []
         },
+
         "why_it_lands": {
+          "_note": "confirmed 直接從 root_evidence 對應層的 confirmed 資料填入，不重新生成",
           "headline": "頁面標題",
-          "verified_facts": ["已有公開數據佐證的事實1", "事實2"],
-          "preliminary_reads": ["初步判讀1（缺乏公開數據支持）"],
           "footer": "頁尾收束句",
-          "pending_verification": false
-        },
-        "what_to_steal": {
-          "headline": "頁面標題",
-          "methods": [
+          "confirmed": [
             {
-              "method": "具體方法描述",
-              "condition": "適用條件：什麼類型的品牌、什麼情境下可借用"
+              "claim": "已驗證事實（來自 root_evidence）",
+              "source_ref": "來源 label"
             }
           ],
+          "estimated": [
+            {
+              "claim": "初步判讀",
+              "proxy": "代理變數",
+              "assumption": "成立假設"
+            }
+          ],
+          "unknown": [
+            {
+              "question": "待補問題",
+              "needed": "需要什麼資料",
+              "impact": "補齊後的影響"
+            }
+          ]
+        },
+
+        "what_to_steal": {
+          "headline": "頁面標題",
           "footer": "頁尾收束句",
-          "pending_verification": false
+          "methods": [
+            {
+              "title": "動詞開頭的方法標題",
+              "scenarios": [
+                {
+                  "condition": "在 A 條件下（品牌有直客基礎）",
+                  "first_step": "第一步是 X",
+                  "confidence": "rooted"
+                },
+                {
+                  "condition": "在 B 條件下（純 OTA 依賴）",
+                  "first_step": "需要先做 Y",
+                  "confidence": "estimated"
+                },
+                {
+                  "condition": "在 C 條件下（組織沒有數據能力）",
+                  "outcome": "此方法不成立",
+                  "confidence": "estimated"
+                }
+              ],
+              "boundary_status": "rooted | estimated | unknown",
+              "_boundary_status_note": "來自 root_evidence.boundary.status"
+            }
+          ],
+          "confirmed": [],
+          "estimated": [],
+          "unknown": []
         }
       },
+
       "model_configs": [
         {
           "model": "Consumer Journey",
           "page": "system",
-          "purpose": "說明這個模型在此頁解決什麼分析問題"
+          "purpose": "說明這個模型在此頁解決什麼分析問題（非模型名稱，是本案應用結論）"
         }
       ],
+
       "sources": [
         {
           "label": "資訊標注",
           "source": "來源名稱或 URL",
           "type": "official",
-          "_type_note": "official / major_media / secondary_media"
+          "_type_note": "official / major_media / secondary_media / proxy（v2.6 新增，代理變數來源）"
         }
       ]
     }
@@ -113,7 +226,11 @@
   "conclusion": {
     "cross_case_insight": "從三案提煉出的跨案洞察（不是摘要，是更高一層的判斷）",
     "action_prompt": "對讀者的行動建議或思考提問",
+    "key_unknowns": [
+      "三案中最關鍵的待補資料 1",
+      "待補資料 2（選填，最多 3 條）"
+    ],
     "_optional": true,
-    "_optional_note": "Sprint Mode 可省略，設為 null"
+    "_optional_note": "Sprint Mode 可設為 null。key_unknowns 是整份報告的知識邊界聲明。"
   }
 }

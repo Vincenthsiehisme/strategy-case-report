@@ -1,9 +1,9 @@
 # 寫作規則與 Deck 設計原則
 
 > 此文件由 `references/phases-4-7.md` Phase 5 引用。讀取時機：First-Round Analysis 執行前。  
-> 包含：寫作語氣、標題規則、內文結構、頁尾規則、各頁功能定義、Deck 設計原則、論證型配圖執行規則。  
-> **視覺 ref 搜圖規則（設計錨點用）屬於渲染職責，見 report-renderer skill 的 `references/visual-ref.md`。**  
-> **本文件只處理論證型配圖（用於佐證分析論點、嵌入最終頁面的圖）。**
+> 包含：寫作語氣、標題規則、內文結構、頁尾規則、各頁功能定義、Deck 設計原則（渲染層參考）、論證型配圖執行規則（渲染層參考）。  
+> **職責邊界**：「寫作規則」與「各頁功能定義」屬於分析段職責，Phase 5 執行時使用。「Deck 設計原則」與「配圖執行規則」屬於渲染層職責，由 report-renderer skill 執行，分析段讀取本文件時這兩節僅供背景理解，**不在分析段執行**。  
+> **視覺 ref 搜圖規則（設計錨點用）屬於渲染職責，見 report-renderer skill 的 `references/visual-ref.md`。**
 
 ---
 
@@ -64,12 +64,16 @@
 | 3 | The tension | 拆 tension / insight | **Tension** = 消費者或市場中存在的真實矛盾，是兩件看似都對、卻彼此衝突的事。**Insight** = 從這個矛盾中提煉出的判斷，說明品牌的機會在哪。不能停在表面 observation（觀察到的現象），必須到判斷（這意味著什麼） |
 | 4 | The strategic reframe | 說明品牌怎麼重做說法 | **Reframe** = 品牌把同一件事，換了一個框架來說，讓它產生新的意義。這頁要說清楚：舊框架是什麼、新框架是什麼、換框架的依據是什麼 |
 | 5 | The system | 呈現 IMC 系統 | 不是媒體列表，而是每個接觸點在消費者路徑中扮演的角色。要說明「為什麼這個點要做這件事」，而不只是「這個點做了什麼」 |
-| 6 | Why it lands | 檢視被證明的部分 | 明確區分：已有公開數據佐證的事實 vs. 仍是合理推論的判讀。不誇大，不迴避，直接說清楚哪些成效有根據、哪些還是觀察 |
-| 7 | What to steal | 萃取可借用的方法 | 每個方法必須附使用條件：「適合用在什麼類型的品牌、什麼情境下」，不是泛用建議，是有條件的方法論 |
+| 6 | Why it lands | 檢視被證明的部分 | 明確區分：confirmed（有直接資料佐證）/ estimated（代理推論，附 proxy + assumption）/ unknown（待補資料，附 needed + impact）。不誇大，不迴避，直接說清楚哪些成效有根據、哪些是推論、哪些還不知道 |
+| 7 | What to steal | 萃取可借用的方法 | 每個方法用 scenarios 結構輸出：在 A 條件下第一步是什麼、在 B 條件下需要什麼前置、在 C 條件下不成立。不是泛用建議，是有條件區間的方法論 |
 
 ---
 
 ## Deck 設計原則
+
+> ⚠️ **渲染層內容**：以下兩節（Deck 設計原則 + 配圖執行規則）屬於 report-renderer skill 的執行範疇。  
+> 分析段（Phase 5）讀取本文件時，這兩節僅供理解輸出目標的視覺方向，**不在分析段執行任何配圖決策**。  
+> 配圖的實際執行由 report-renderer skill 負責，詳見其 `references/visual-ref.md` 和輸出路徑規格文件。
 
 ### 整體方向
 - 高級時尚感（luxury-fashion-inspired editorial strategy deck）
@@ -101,7 +105,12 @@
 | proof page | 數據 / 佐證 + 精簡文字 |
 | takeaway page | 可被借走的方法，條列清晰 |
 
-### 配圖執行規則（C 模式）
+---
+
+## 配圖執行規則
+
+> ⚠️ **渲染層內容**：配圖的搜尋、嵌入、版權判斷由 report-renderer skill 執行，不在分析段處理。  
+> 以下規則供 report-renderer skill 參考，strategy-case-report 分析段讀到此節可跳過。
 
 **核心原則：圖片是證據，不是裝飾。每張圖都必須在分析邏輯中有存在理由。**
 

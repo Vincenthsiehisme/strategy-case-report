@@ -1,14 +1,15 @@
 # 模型庫參考文件
 
 > 此文件由 `references/phases-4-7.md` Phase 4 引用。讀取時機：Analysis Blueprint 執行前。  
-> 包含：核心模型庫、條件式模型庫、模型選擇決策樹、模型使用規則、HTML 圖表實作指引。
+> 包含：核心模型庫、條件式模型庫、模型選擇決策樹、模型使用規則、HTML 圖表實作指引。  
+> **職責邊界**：「模型選擇決策樹」至「模型使用規則」屬於分析段職責，Phase 4 執行時使用。「HTML 圖表實作指引」屬於渲染層職責，由 report-renderer skill 執行，**分析段不執行圖表實作**。
 
 ## 目錄
 1. [模型選擇決策樹](#模型選擇決策樹)
 2. [核心模型庫](#核心模型庫（Core-Model-Library）)（8 個：SWOT→TOWS / STP / JTBD / Brand Ladder / Brand Essence Pyramid / Golden Circle / Consumer Journey / CEPs）
 3. [條件式模型庫](#條件式模型庫（Conditional-Model-Library）)（4 個：4P / Binet & Field / COM-B / Kapferer）
 4. [模型使用規則](#模型使用規則)
-5. [HTML 圖表實作指引](#html-圖表實作指引)
+5. [HTML 圖表實作指引](#html-圖表實作指引)（渲染層，分析段跳過）
 
 ---
 
@@ -233,7 +234,7 @@ FMCG、零售、平台品牌、需要搶占品類入口記憶的案例
 模型應該嵌在案例邏輯裡，而不是成為每頁大標。報告不能做成理論教學簡報。
 
 **Rule 3｜模型必須轉成圖表**  
-所有被選中的模型，都要做成可上簡報的圖表。模型不能只寫名字。
+所有被選中的模型，都要做成可上簡報的圖表。模型不能只寫名字。圖表的實際 HTML 實作由 report-renderer skill 負責。
 
 **Rule 4｜模型的預設放置位置**
 - Problem 頁 → 優先：SWOT → TOWS / STP / CEPs / JTBD
@@ -254,6 +255,10 @@ FMCG、零售、平台品牌、需要搶占品類入口記憶的案例
 ---
 
 ## HTML 圖表實作指引
+
+> ⚠️ **渲染層內容**：以下 HTML/CSS 實作規格由 report-renderer skill 執行，不在分析段處理。  
+> 分析段（Phase 4）讀取本文件時，只需執行「選哪個模型、放哪個頁面、為什麼」，**不執行 HTML 實作**。  
+> 以下內容供 report-renderer skill 參考。
 
 Phase 7 製作時，所有模型圖表以 HTML/CSS 實作，不用圖片替代。以下為各類圖表的結構方向：
 
